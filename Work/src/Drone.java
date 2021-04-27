@@ -8,18 +8,38 @@ public class Drone extends Bee {
     protected static int count;
     //private static Image image;
     private static BufferedImage image;
+    //protected long time;
+    //protected static Integer lifeTime;
 
-    public Drone(double cordX, double cordY) {
+    public Drone(double cordX, double cordY, Integer life, long time, Integer ID) {
+        this.ID = ID;
         this.cordX = cordX;
         this.cordY = cordY;
-        /*if (count == 0){
-            try{
-                image = ImageIO.read(getClass().getResource("res/Drone.png"));
-            }catch (IOException e) {
-                e.printStackTrace();
-            }
-        }*/
+        this.time = time/1000;
+        lifeTime = life;
         count++;
+    }
+
+    public void drive(){
+        //this.cordX -= 0.005;
+        //this.cordY += 0.005;
+        if (count == 1){
+            this.cordY -= 0.005;
+            //this.cordY = 0.005;
+        } else if(count == 2){
+            this.cordX -= 0.005;
+        } else{
+            this.cordY += 0.005;
+        }
+    }
+
+    public boolean check(long time){
+        if(time/1000 == this.time + lifeTime){
+            count--;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public static Image GET_IMAGE() {
